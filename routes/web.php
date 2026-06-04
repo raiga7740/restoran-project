@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\MenuController;
 
 Route::get('/', function () {
     return view('home');
@@ -33,3 +35,15 @@ Route::get('/admin/menu/create', function () {
 Route::get('/admin/reservasi', function () {
     return view('admin.reservasi.index');
 })->name('admin.reservasi.index');
+
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login'])->name('login.process');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    Route::resource('/menu', MenuController::class);
+});

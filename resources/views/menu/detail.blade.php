@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Menu - RestoranKu')
+@section('title', 'Detail Menu - Saung Rasa Sunda')
 
 @section('content')
 <section class="section">
@@ -11,7 +11,7 @@
             <h2>Nama Menu {{ $id }}</h2>
             <p class="price">Rp 25.000</p>
             <p>
-                Ini adalah deskripsi menu. Nantinya data ini akan diambil dari database.
+                menu
             </p>
 
             <a href="{{ route('menu.index') }}" class="btn-secondary">Kembali</a>

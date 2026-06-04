@@ -17,6 +17,17 @@
     <a href="{{ route('home') }}#menu">Menu</a>
     <a href="{{ route('home') }}#reservasi">Reservasi</a>
     <a href="{{ route('home') }}#kontak">Kontak</a>
+
+    @auth
+        <a href="{{ route('admin.dashboard') }}" class="nav-login">Dashboard</a>
+
+        <form action="{{ route('logout') }}" method="POST" class="nav-logout-form">
+            @csrf
+            <button type="submit" class="nav-login">Logout</button>
+        </form>
+    @else
+        <a href="{{ route('login') }}" class="nav-login">Login</a>
+    @endauth
 </div>
 </nav>
 
