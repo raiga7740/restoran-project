@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'RestoranKu')</title>
+    <title>@yield('title', 'Saung Rasa Sunda')</title>
     <link rel="stylesheet" href="{{ asset('css/resto.css') }}">
 </head>
 <body>
@@ -25,7 +25,7 @@
 </main>
 
 <footer class="footer">
-    <p>&copy; {{ date('Y') }} RestoranKu. All rights reserved.</p>
+    <p>&copy; {{ date('Y') }} Saung Rasa Sunda. All rights reserved.</p>
 </footer>
 
 </body>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home - RestoranKu')
+@section('title', 'Home - Saung Rasa Sunda')
 
 @section('content')
 
@@ -9,7 +9,7 @@
         <span class="badge-hero">Fresh • Delicious • Cozy</span>
         <h1>Nikmati Hidangan Terbaik Bersama Kami</h1>
         <p>
-            RestoranKu menghadirkan makanan lezat, suasana nyaman, dan pelayanan terbaik
+            Saung Rasa Sunda menghadirkan makanan lezat, suasana nyaman, dan pelayanan terbaik
             untuk keluarga, teman, maupun acara spesial Anda.
         </p>
 
@@ -35,7 +35,7 @@
         <h2>Cita Rasa Terbaik dengan Suasana Hangat</h2>
         <p>
             Kami menyajikan berbagai pilihan makanan dan minuman dengan bahan segar,
-            resep pilihan, dan pelayanan yang ramah. RestoranKu cocok untuk makan bersama
+            resep pilihan, dan pelayanan yang ramah. Saung Rasa Sunda cocok untuk makan bersama
             keluarga, meeting santai, hingga makan malam spesial.
         </p>
 
@@ -131,7 +131,7 @@
     <div class="contact-grid">
         <div class="contact-card">
             <h3>Alamat</h3>
-            <p>Jl. Contoh Restoran No. 10, Indonesia</p>
+            <p>Jl. Raya Bogor No. 10, Indonesia</p>
         </div>
 
         <div class="contact-card">
