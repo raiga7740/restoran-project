@@ -4,6 +4,12 @@
 
 @section('content')
 
+@if (session('success'))
+    <div class="alert-success public-alert">
+        {{ session('success') }}
+    </div>
+@endif
+
 <section class="hero" id="home">
     <div class="hero-content">
         <span class="badge-hero">Fresh • Delicious • Cozy</span>
@@ -52,12 +58,20 @@
     <span class="section-label">Galeri</span>
     <h2>Suasana Restoran Kami</h2>
 
-    <div class="gallery-grid">
-        <div class="gallery-item"><img src="{{ asset('images/galeri1.jpg') }}" alt="Galeri 1" class="about-img"></div>
-        <div class="gallery-item"><img src="{{ asset('images/galeri2.jpg') }}" alt="Galeri 2" class="about-img"></div>
-        <div class="gallery-item"><img src="{{ asset('images/galeri3.jpg') }}" alt="Galeri 3" class="about-img"></div>
-        <div class="gallery-item"><img src="{{ asset('images/galeri4.jpg') }}" alt="Galeri 4" class="about-img"></div>
-    </div>
+<div class="gallery-grid">
+
+    @foreach($galleries as $gallery)
+
+        <div class="gallery-item">
+
+            <img src="{{ asset('storage/' . $gallery->gambar) }}"
+                 alt="{{ $gallery->judul }}">
+
+        </div>
+
+    @endforeach
+
+</div>
 </section>
 
 
@@ -65,28 +79,25 @@
     <span class="section-label">Menu Favorit</span>
     <h2>Menu Pilihan Kami</h2>
 
-    <div class="menu-grid">
+<div class="menu-grid">
+    @forelse ($menus as $menu)
         <div class="menu-card">
-            <div class="menu-img"><img src="{{ asset('images/gambar1.jpg') }}" alt="makanan sunda 1"></div>
-            <h3>Nasi Goreng Spesial</h3>
-            <p>Rp 25.000</p>
-            <a href="{{ route('menu.detail', 1) }}">Lihat Detail</a>
-        </div>
+            <div class="menu-img">
+                @if ($menu->gambar)
+                    <img src="{{ asset('storage/' . $menu->gambar) }}" alt="{{ $menu->nama }}">
+                @else
+                    <span>Gambar</span>
+                @endif
+            </div>
 
-        <div class="menu-card">
-            <div class="menu-img"><img src="{{ asset('images/gambar2.jpg') }}" alt="makanan sunda 2"></div>
-            <h3>Ayam Bakar Madu</h3>
-            <p>Rp 32.000</p>
-            <a href="{{ route('menu.detail', 2) }}">Lihat Detail</a>
+            <h3>{{ $menu->nama }}</h3>
+            <p>Rp {{ number_format($menu->harga, 0, ',', '.') }}</p>
+            <small>{{ Str::limit($menu->deskripsi, 60) }}</small>
         </div>
-
-        <div class="menu-card">
-            <div class="menu-img"><img src="{{ asset('images/gambar3.jpg') }}" alt="makanan sunda 3"></div>
-            <h3>Sate Kambing</h3>
-            <p>Rp 18.000</p>
-            <a href="{{ route('menu.detail', 3) }}">Lihat Detail</a>
-        </div>
-    </div>
+    @empty
+        <p>Belum ada menu.</p>
+    @endforelse
+</div>
 
     <div class="center-button">
         <a href="{{ route('menu.index') }}" class="btn-primary">Lihat Semua Menu</a>
@@ -103,24 +114,29 @@
         </p>
     </div>
 
-    <form class="form-card">
-        <label>Nama Lengkap</label>
-        <input type="text" placeholder="Masukkan nama">
+<form action="{{ route('reservasi.store') }}" method="POST" class="form-card">
+    @csrf
 
-        <label>No HP</label>
-        <input type="text" placeholder="Masukkan nomor HP">
+    <label>Nama Lengkap</label>
+    <input type="text" name="nama" placeholder="Masukkan nama lengkap" required>
 
-        <label>Tanggal</label>
-        <input type="date">
+    <label>No HP</label>
+    <input type="text" name="no_hp" placeholder="Masukkan nomor HP" required>
 
-        <label>Jam</label>
-        <input type="time">
+    <label>Tanggal</label>
+    <input type="date" name="tanggal" required>
 
-        <label>Jumlah Orang</label>
-        <input type="number" placeholder="Contoh: 4">
+    <label>Jam</label>
+    <input type="time" name="jam" required>
 
-        <button type="submit">Kirim Reservasi</button>
-    </form>
+    <label>Jumlah Orang</label>
+    <input type="number" name="jumlah_orang" placeholder="Contoh: 4" required>
+
+    <label>Catatan</label>
+    <textarea name="catatan" placeholder="Catatan tambahan"></textarea>
+
+    <button type="submit">Kirim Reservasi</button>
+</form>
 </section>
 
 

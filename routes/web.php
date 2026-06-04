@@ -3,9 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\Admin\GalleryController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
+use App\Models\Menu;
+use App\Models\Gallery;
 
 Route::get('/', function () {
-    return view('home');
+    $menus = Menu::latest()->take(4)->get();
+    $galleries = Gallery::latest()->take(6)->get();
+
+    return view('home', compact('menus', 'galleries'));
 })->name('home');
 
 Route::get('/menu', function () {
@@ -16,25 +24,7 @@ Route::get('/menu/{id}', function ($id) {
     return view('menu.detail', compact('id'));
 })->name('menu.detail');
 
-Route::get('/reservasi', function () {
-    return view('reservasi');
-})->name('reservasi');
-
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
-
-Route::get('/admin/menu', function () {
-    return view('admin.menu.index');
-})->name('admin.menu.index');
-
-Route::get('/admin/menu/create', function () {
-    return view('admin.menu.create');
-})->name('admin.menu.create');
-
-Route::get('/admin/reservasi', function () {
-    return view('admin.reservasi.index');
-})->name('admin.reservasi.index');
+Route::post('/reservasi', [ReservationController::class, 'store'])->name('reservasi.store');
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.process');
@@ -44,6 +34,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
+    Route::resource('/galeri', GalleryController::class);
 
     Route::resource('/menu', MenuController::class);
+
+    Route::get('/reservasi', [AdminReservationController::class, 'index'])->name('reservasi.index');
+    Route::delete('/reservasi/{reservation}', [AdminReservationController::class, 'destroy'])->name('reservasi.destroy');
+    Route::patch('/reservasi/{reservation}/status/{status}', [AdminReservationController::class, 'updateStatus'])->name('reservasi.status');
 });
