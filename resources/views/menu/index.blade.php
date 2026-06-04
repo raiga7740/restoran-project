@@ -1,30 +1,32 @@
 @extends('layouts.app')
 
-@section('title', 'Menu - Saung Rasa Sunda')
+@section('title', 'Daftar Menu')
 
 @section('content')
-<section class="section">
+<section class="section" id="menu">
+    <span class="section-label">Semua Menu</span>
     <h2>Daftar Menu</h2>
 
-    <div class="filter-box">
-        <input type="text" placeholder="Cari menu...">
-        <select>
-            <option>Semua Kategori</option>
-            <option>Makanan</option>
-            <option>Minuman</option>
-            <option>Dessert</option>
-        </select>
-    </div>
-
     <div class="menu-grid">
-        @for ($i = 1; $i <= 6; $i++)
+        @forelse ($menus as $menu)
             <div class="menu-card">
-                <div class="menu-img">Gambar</div>
-                <h3>Nama Menu {{ $i }}</h3>
-                <p>Rp {{ number_format(15000 + ($i * 3000), 0, ',', '.') }}</p>
-                <a href="{{ route('menu.detail', $i) }}">Lihat Detail</a>
+                <div class="menu-img">
+                    @if ($menu->gambar)
+                        <img src="{{ asset('storage/' . $menu->gambar) }}" alt="{{ $menu->nama }}">
+                    @else
+                        <span>Gambar</span>
+                    @endif
+                </div>
+
+                <h3>{{ $menu->nama }}</h3>
+                <p>Rp {{ number_format($menu->harga, 0, ',', '.') }}</p>
+                <p class="menu-desc">{{ Str::limit($menu->deskripsi, 80) }}</p>
+
+                <a href="{{ route('menu.detail', $menu->id) }}">Lihat Detail</a>
             </div>
-        @endfor
+        @empty
+            <p>Belum ada menu.</p>
+        @endforelse
     </div>
 </section>
 @endsection

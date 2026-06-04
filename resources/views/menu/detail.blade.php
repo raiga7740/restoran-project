@@ -1,18 +1,27 @@
 @extends('layouts.app')
 
-@section('title', 'Detail Menu - Saung Rasa Sunda')
+@section('title', $menu->nama)
 
 @section('content')
 <section class="section">
     <div class="detail-card">
-        <div class="detail-img">Gambar Menu</div>
+        <div class="detail-img">
+            @if ($menu->gambar)
+                <img src="{{ asset('storage/' . $menu->gambar) }}" alt="{{ $menu->nama }}">
+            @else
+                <span>Gambar Menu</span>
+            @endif
+        </div>
 
         <div>
-            <h2>Nama Menu {{ $id }}</h2>
-            <p class="price">Rp 25.000</p>
-            <p>
-                menu
+            <span class="section-label">{{ $menu->kategori }}</span>
+            <h2>{{ $menu->nama }}</h2>
+
+            <p class="price">
+                Rp {{ number_format($menu->harga, 0, ',', '.') }}
             </p>
+
+            <p>{{ $menu->deskripsi }}</p>
 
             <a href="{{ route('menu.index') }}" class="btn-secondary">Kembali</a>
         </div>

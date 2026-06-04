@@ -8,12 +8,17 @@
 <div class="stats-grid">
     <div class="stat-card">
         <h3>Total Menu</h3>
-        <p>24</p>
+        <p>{{ $totalMenu }}</p>
     </div>
 
     <div class="stat-card">
         <h3>Total Reservasi</h3>
-        <p>10</p>
+        <p>{{ $totalReservasi }}</p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Total Galeri</h3>
+        <p>{{ $totalGaleri }}</p>
     </div>
 </div>
 @endsection

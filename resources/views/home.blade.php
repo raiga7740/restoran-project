@@ -99,9 +99,11 @@
     @endforelse
 </div>
 
-    <div class="center-button">
-        <a href="{{ route('menu.index') }}" class="btn-primary">Lihat Semua Menu</a>
-    </div>
+<div class="center-button">
+    <a href="{{ route('menu.index') }}" class="btn-primary">
+        Lihat Semua Menu
+    </a>
+</div>
 </section>
 
 
